@@ -107,7 +107,7 @@ export const team: TeamMember[] = [
       {
         degree: "Master 2 in Cybersecurity",
         period: "",
-        school: "",
+        school: "Lebanese University",
       },
       {
         degree: "Master's in Computer Science",
