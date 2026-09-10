@@ -82,7 +82,7 @@ export const team: TeamMember[] = [
   {
     slug: "hussein-kteish",
     name: "Hussein Kteish",
-    role: "Cybersecurity Specialist & Software Developer",
+    role: "Co-Founder · Cybersecurity Specialist & Software Developer",
     summary:
       "Software developer and cybersecurity pentester across web, mobile, and backend, with a security-first approach — pentesting what he builds and fixing the findings.",
     about:
@@ -126,7 +126,7 @@ export const team: TeamMember[] = [
   {
     slug: "mohammad-khalife",
     name: "Mohammad Khalife",
-    role: "Computer Scientist & Software Developer",
+    role: "Co-Founder · Computer Scientist & Software Developer",
     location: "France",
     email: "mhmd-khalife@hotmail.com",
     links: [
