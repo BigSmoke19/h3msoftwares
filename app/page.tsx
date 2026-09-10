@@ -36,8 +36,24 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden">
+        <video
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-40"
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden
+          src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4"
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(4,14,39,0.72) 0%, rgba(4,14,39,0.86) 55%, #040E27 100%)",
+          }}
+        />
         <div className="noise-overlay" />
-        <div className="mx-auto flex max-w-content flex-col items-start px-6 pb-20 pt-24 md:pb-28 md:pt-36">
+        <div className="relative z-10 mx-auto flex max-w-content flex-col items-start px-6 pb-20 pt-24 md:pb-28 md:pt-36">
           <p className="text-sm text-white/50">
             <span className="bracket">&lt;</span> H3M Softwares{" "}
             <span className="bracket">/&gt;</span>
