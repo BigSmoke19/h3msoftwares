@@ -22,6 +22,13 @@ export const team: TeamMember[] = [
     role: "Co-Founder & CEO · Full-Stack Developer · Applied AI/LLM Engineer",
     location: "Beirut, Lebanon",
     email: "mohammadsafieddine789@gmail.com",
+    links: [
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/mohammad-safieddine-153635248/",
+      },
+      { label: "GitHub", href: "https://github.com/BigSmoke19" },
+    ],
     summary:
       "Builds production-grade apps with Next.js, FastAPI, and PostgreSQL, and applied LLM systems including RAG pipelines and autonomous agents. Three years of freelance experience delivering custom web applications end-to-end, and currently a Master's student and researcher in AI at the Lebanese University.",
     about:
