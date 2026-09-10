@@ -5,6 +5,7 @@ import {
   MonitorSmartphone,
   BrainCircuit,
   ShieldCheck,
+  Radar,
 } from "lucide-react";
 
 const services = [
@@ -66,6 +67,18 @@ const services = [
       "Fine-grained, per-area permission systems",
       "Audit logs with a JSON diff per change",
       "Rate limiting and account-abuse protection",
+    ],
+  },
+  {
+    icon: Radar,
+    title: "Penetration testing & security audits",
+    description:
+      "Real-world attack simulation against your apps and infrastructure — finding what a script kiddie or a serious attacker would find, before they do.",
+    includes: [
+      "Web, mobile & API penetration testing",
+      "Infrastructure and network vulnerability scans",
+      "OWASP Top 10 / CVE-based assessments",
+      "Remediation reports with severity ratings",
     ],
   },
 ];

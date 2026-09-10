@@ -91,15 +91,15 @@ export const team: TeamMember[] = [
     name: "Hussein Kteish",
     role: "Co-Founder · Cybersecurity Specialist & Software Developer",
     summary:
-      "Software developer and cybersecurity pentester across web, mobile, and backend, with a security-first approach — pentesting what he builds and fixing the findings.",
+      "Software developer and cybersecurity pentester across web, mobile, and backend, with a security-first approach pentesting what he builds and fixing the findings.",
     about:
-      "Hussein is a software developer and cybersecurity pentester with a strong academic background and hands-on experience across software development and security. He holds a Bachelor's and Master's degree in Computer Science from the Lebanese University, along with a Master 2 in Cybersecurity. He works across the full stack — building web and mobile applications, designing backend systems, and applying AI to solve real-world problems — while bringing a security-first mindset to everything he builds by applying pentesting and fixing findings.",
+      "Hussein is a software developer and  pentester with a strong academic background and hands-on experience across software development and security. He holds a Bachelor's and Master's degree in Computer Science from the Lebanese University, along with a Master 2 in Cybersecurity. He works across the full stack building web and mobile applications, designing backend systems, and applying AI to solve real-world problems while bringing a security-first mindset to everything he builds by applying pentesting and fixing findings.",
     experience: [
       {
         title: "Software Developer & Penetration Tester",
         period: "",
         description:
-          "Builds full-stack web and mobile applications and backend systems, then penetration-tests them — reporting and remediating the findings rather than handing off a list.",
+          "Builds full-stack web and mobile applications and backend systems. Penetration-tests web and mobile apps reporting and remediating the findings rather than handing off a list.",
       },
     ],
     projects: [],
@@ -107,7 +107,7 @@ export const team: TeamMember[] = [
       {
         degree: "Master 2 in Cybersecurity",
         period: "",
-        school: "",
+        school: "Lebanese University",
       },
       {
         degree: "Master's in Computer Science",
