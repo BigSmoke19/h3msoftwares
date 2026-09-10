@@ -17,7 +17,7 @@ export const team: TeamMember[] = [
   {
     slug: "mohammad-safieddine",
     name: "Mohammad Safieddine",
-    role: "Full-Stack Developer · Applied AI/LLM Engineer",
+    role: "Co-Founder & CEO · Full-Stack Developer · Applied AI/LLM Engineer",
     location: "Beirut, Lebanon",
     email: "mohammadsafieddine789@gmail.com",
     summary:

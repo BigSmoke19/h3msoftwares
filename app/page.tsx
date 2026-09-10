@@ -153,7 +153,7 @@ export default function Home() {
                   {p.summary}
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2">
-                  {p.stack.slice(0, 4).map((t) => (
+                  {p.features.slice(0, 4).map((t) => (
                     <Chip key={t}>{t}</Chip>
                   ))}
                 </div>

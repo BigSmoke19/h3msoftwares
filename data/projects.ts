@@ -5,6 +5,7 @@ export type Project = {
   date: string;
   role: string;
   stack: string[];
+  features: string[];
   featured: boolean;
   summary: string;
   overview: string;
@@ -23,9 +24,17 @@ export const projects: Project[] = [
     date: "2026",
     role: "Full-stack — architecture, API, frontend, design system, tests",
     stack: ["Next.js", "React", "Express", "Prisma", "PostgreSQL", "React Query", "Redux Toolkit"],
+    features: [
+      "Bilingual storefront (EN/AR)",
+      "Cash-on-delivery checkout",
+      "Discounts & coupons",
+      "Owner-run merchandising",
+      "Guest order tracking",
+      "Sales & traffic analytics",
+    ],
     featured: true,
     summary:
-      "A production storefront and back office for a Lebanese clothing retailer, built English/Arabic first with full RTL, cash-on-delivery checkout, and an admin panel gated by a granular role system.",
+      "An English/Arabic online store for a clothing retailer: shoppers browse in either language, pay cash on delivery, and track orders without an account, while the owner runs the home page, discounts, and staff permissions from an admin panel.",
     overview:
       "Ali's Store is designed around how a small shop actually sells: no card gateway, a bilingual customer base, and one or two people running everything. Every page is EN/AR with the whole layout mirroring for Arabic, and the storefront — hero, featured rows, banners, story page, reviews — is composed and reordered from the admin with no deploy.",
     highlights: [
@@ -77,9 +86,17 @@ export const projects: Project[] = [
       "Redux Toolkit",
       "TanStack Query",
     ],
+    features: [
+      "POS checkout page",
+      "Inventory & warehouses",
+      "Purchasing & suppliers",
+      "Sales analytics",
+      "Supplier & customer ledgers",
+      "Cash-drawer shifts",
+    ],
     featured: true,
     summary:
-      "A full point-of-sale and back-office system for retail shops that ships either as a classic web stack or as a single self-contained Windows desktop app bundling its own database, API, and licensing.",
+      "A point-of-sale and back-office system for retail shops: a fast checkout page, inventory and purchasing, supplier and customer ledgers, cash-drawer shifts, and sales analytics — running fully offline on a single PC or online across several terminals.",
     overview:
       "Small and mid-size retailers need a real POS — multi-currency, multi-warehouse, tax-aware, with supplier and customer ledgers — but they don't have IT staff, a server room, or a reliable internet connection. H3M POS is designed so a shop owner can run the installer on one ordinary Windows PC and be selling in minutes, fully offline, while the same codebase still deploys as a normal containerised web app for multi-terminal shops.",
     highlights: [
