@@ -38,6 +38,25 @@ npm run build
 npm run start
 ```
 
+## Deploying to Vercel
+
+The repo is a standard Next.js 14 App Router project — Vercel needs no
+configuration file.
+
+1. Push to GitHub (already at `github.com/BigSmoke19/H3M`).
+2. In Vercel, **Add New… → Project** and import the `H3M` repo.
+3. Framework preset: **Next.js** (auto-detected). Leave build command
+   (`next build`), output, and install command at their defaults.
+4. No environment variables are required — the site has no backend,
+   no database, and no secrets.
+5. Deploy. All 12 routes are static / SSG, so the result is a fully
+   prerendered site on Vercel's CDN.
+
+`.nvmrc` pins Node 20; `package.json` `engines` requires Node ≥ 18.18.
+
+Every push to `main` triggers a production deploy; pull requests get
+preview URLs automatically.
+
 ## Design tokens
 
 - Background: `#040E27` (sampled from the logo)
