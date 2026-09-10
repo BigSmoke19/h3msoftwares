@@ -20,14 +20,33 @@ export default function TeamPage() {
                   {m.name}
                 </h2>
                 <p className="mt-1.5 text-sm text-brand-bright">{m.role}</p>
-                <p className="mt-1 text-xs text-white/40">{m.location}</p>
+                {m.location && (
+                  <p className="mt-1 text-xs text-white/40">{m.location}</p>
+                )}
+                {m.links && m.links.length > 0 && (
+                  <div className="mt-2.5 flex flex-wrap gap-3">
+                    {m.links.map((l) => (
+                      <a
+                        key={l.href}
+                        href={l.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="focus-ring text-xs text-white/50 hover:text-white"
+                      >
+                        {l.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                )}
               </div>
-              <a
-                href={`mailto:${m.email}`}
-                className="focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium hover:bg-white/5"
-              >
-                <Mail className="h-4 w-4" /> {m.email}
-              </a>
+              {m.email && (
+                <a
+                  href={`mailto:${m.email}`}
+                  className="focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium hover:bg-white/5"
+                >
+                  <Mail className="h-4 w-4" /> {m.email}
+                </a>
+              )}
             </div>
 
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/60">
@@ -43,7 +62,9 @@ export default function TeamPage() {
                   {m.experience.map((e) => (
                     <div key={e.title}>
                       <p className="text-sm font-medium text-white">{e.title}</p>
-                      <p className="text-xs text-white/40">{e.period}</p>
+                      {e.period && (
+                        <p className="text-xs text-white/40">{e.period}</p>
+                      )}
                       <p className="mt-1.5 text-sm leading-relaxed text-white/55">
                         {e.description}
                       </p>
@@ -58,30 +79,35 @@ export default function TeamPage() {
                   {m.education.map((e) => (
                     <div key={e.degree}>
                       <p className="text-sm font-medium text-white">{e.degree}</p>
-                      <p className="text-xs text-white/45">
-                        {e.school}
-                        {e.period ? ` · ${e.period}` : ""}
-                      </p>
+                      {(e.school || e.period) && (
+                        <p className="text-xs text-white/45">
+                          {e.school}
+                          {e.school && e.period ? " · " : ""}
+                          {e.period}
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-sm font-semibold text-white/45">
-                  Selected projects
-                </h3>
-                <div className="mt-4 flex flex-col gap-4">
-                  {m.projects.map((p) => (
-                    <div key={p.name}>
-                      <p className="text-sm font-medium text-white">{p.name}</p>
-                      <p className="mt-1 text-sm leading-relaxed text-white/55">
-                        {p.description}
-                      </p>
-                    </div>
-                  ))}
+              {m.projects.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-white/45">
+                    Selected projects
+                  </h3>
+                  <div className="mt-4 flex flex-col gap-4">
+                    {m.projects.map((p) => (
+                      <div key={p.name}>
+                        <p className="text-sm font-medium text-white">{p.name}</p>
+                        <p className="mt-1 text-sm leading-relaxed text-white/55">
+                          {p.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <h3 className="mt-10 text-sm font-semibold text-white/45">
@@ -93,16 +119,33 @@ export default function TeamPage() {
               ))}
             </div>
 
-            <h3 className="mt-8 text-sm font-semibold text-white/45">
-              Languages
-            </h3>
-            <div className="mt-4 flex flex-wrap gap-4">
-              {m.languages.map((l) => (
-                <p key={l.name} className="text-sm text-white/60">
-                  <span className="text-white">{l.name}</span> — {l.level}
-                </p>
-              ))}
-            </div>
+            {m.languages.length > 0 && (
+              <>
+                <h3 className="mt-8 text-sm font-semibold text-white/45">
+                  Languages
+                </h3>
+                <div className="mt-4 flex flex-wrap gap-4">
+                  {m.languages.map((l) => (
+                    <p key={l.name} className="text-sm text-white/60">
+                      <span className="text-white">{l.name}</span> — {l.level}
+                    </p>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {m.certifications && m.certifications.length > 0 && (
+              <>
+                <h3 className="mt-8 text-sm font-semibold text-white/45">
+                  Certifications
+                </h3>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {m.certifications.map((c) => (
+                    <Chip key={c}>{c}</Chip>
+                  ))}
+                </div>
+              </>
+            )}
           </GlassPanel>
         ))}
       </section>

@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: "H3M Softwares — Software development studio",
   description:
     "H3M Softwares builds full-stack web platforms, bilingual e-commerce, offline point-of-sale systems, and applied AI/LLM products.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
