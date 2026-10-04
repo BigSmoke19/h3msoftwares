@@ -1,39 +1,33 @@
 import Link from "next/link";
-import { ArrowRight, Globe2, ShoppingBag, MonitorSmartphone, BrainCircuit } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { GlassPanel, Chip } from "@/components/UI";
+import { JsonLd } from "@/components/JsonLd";
 import { projects } from "@/data/projects";
 import { team } from "@/data/team";
+import { services, technologies } from "@/data/services";
+import { site } from "@/lib/site";
+import { graph, pageMetadata, webPageJsonLd } from "@/lib/seo";
 
-const services = [
-  {
-    icon: Globe2,
-    title: "Web platforms",
-    description:
-      "Full-stack products on Next.js, Express, and PostgreSQL — from architecture through to a tested, deployed build.",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Bilingual e-commerce",
-    description:
-      "Storefronts built EN/AR first with real right-to-left layouts, cash-on-delivery flows, and admin-run merchandising.",
-  },
-  {
-    icon: MonitorSmartphone,
-    title: "Point of sale & desktop",
-    description:
-      "Offline-first checkout and back-office software that packages into a single installer for a shop with no IT staff.",
-  },
-  {
-    icon: BrainCircuit,
-    title: "Applied AI & LLM systems",
-    description:
-      "RAG pipelines and tool-calling agents built for accuracy, with hallucination rates measured, not assumed.",
-  },
-];
+export const metadata = pageMetadata({
+  description: site.description,
+  path: "/",
+});
+
+const featuredServices = services.filter((s) => s.teaser);
 
 export default function Home() {
   return (
     <>
+      <JsonLd
+        data={graph(
+          webPageJsonLd({
+            path: "/",
+            name: site.defaultTitle,
+            description: site.description,
+          }),
+        )}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <video
@@ -54,20 +48,24 @@ export default function Home() {
         />
         <div className="noise-overlay" />
         <div className="relative z-10 mx-auto flex max-w-content flex-col items-start px-6 pb-20 pt-24 md:pb-28 md:pt-36">
-          <p className="text-sm text-white/50">
-            <span className="bracket">&lt;</span> H3M Softwares{" "}
-            <span className="bracket">/&gt;</span>
-          </p>
-          <h1 className="mt-6 max-w-3xl text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl">
-            Software your
-            <br />
-            business can <span className="shine">actually run on.</span>
+          <h1 className="max-w-3xl">
+            <span className="block text-sm font-normal text-white/50">
+              <span className="bracket" aria-hidden>&lt;</span> H3M Softwares
+              <span className="text-white/30"> · </span>software development
+              company <span className="bracket" aria-hidden>/&gt;</span>
+            </span>
+            <span className="mt-6 block text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl">
+              Software your
+              <br />
+              business can <span className="shine">actually run on.</span>
+            </span>
           </h1>
-          <p className="mt-8 max-w-lg text-base leading-relaxed text-white/60 md:text-lg">
-            A development studio. We build web platforms, bilingual
-            storefronts, offline point-of-sale systems, and applied AI
-            products — and we stay on the project from architecture to the
-            till.
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
+            H3M Softwares is a software development company based in Lebanon.
+            We build full-stack web platforms, bilingual English/Arabic
+            e-commerce, offline point-of-sale and desktop software, and
+            applied AI systems — and we stay on the project from architecture
+            to the till.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link
@@ -117,16 +115,39 @@ export default function Home() {
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          {services.map((s) => (
-            <GlassPanel key={s.title} className="p-6">
-              <s.icon className="h-5 w-5 text-brand-bright" />
-              <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/55">
-                {s.description}
-              </p>
-            </GlassPanel>
+          {featuredServices.map((s) => (
+            <Link
+              key={s.slug}
+              href={`/services#${s.slug}`}
+              className="group focus-ring block"
+            >
+              <GlassPanel className="h-full p-6 transition-colors group-hover:bg-white/[0.035]">
+                <s.icon className="h-5 w-5 text-brand-bright" />
+                <h3 className="mt-4 text-lg font-semibold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/55">
+                  {s.teaser}
+                </p>
+              </GlassPanel>
+            </Link>
           ))}
         </div>
+        <p className="mt-6 text-sm text-white/50">
+          We also run{" "}
+          <Link
+            href="/services#penetration-testing"
+            className="focus-ring text-brand-bright hover:text-white"
+          >
+            penetration testing and security audits
+          </Link>{" "}
+          and design{" "}
+          <Link
+            href="/services#security-access-control"
+            className="focus-ring text-brand-bright hover:text-white"
+          >
+            authentication and access-control systems
+          </Link>
+          .
+        </p>
       </section>
 
       {/* Featured projects */}
@@ -163,24 +184,59 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Technologies */}
+      <section className="mx-auto max-w-content px-6 py-20 md:py-28">
+        <h2 className="max-w-md text-3xl font-semibold tracking-tight md:text-4xl">
+          Technologies we work with
+        </h2>
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/55">
+          Our production work is built mostly in TypeScript: Next.js and React
+          on the front end, Node.js with Express and Prisma over PostgreSQL on
+          the back end, and Electron when software has to run as an offline
+          desktop install. For AI work we use Python, FastAPI, and LangChain
+          to build retrieval-augmented generation (RAG) pipelines and
+          tool-calling agents.
+        </p>
+        <ul className="mt-8 flex flex-wrap gap-2">
+          {technologies.map((t) => (
+            <li key={t}>
+              <Chip>{t}</Chip>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* Team teaser */}
       <section className="mx-auto max-w-content px-6 py-20 md:py-28">
-        <GlassPanel className="flex flex-col items-start gap-8 p-8 md:flex-row md:items-center md:justify-between md:p-12">
-          <div>
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              {team[0].name}
-            </h2>
-            <p className="mt-2 text-sm text-white/55">{team[0].role}</p>
-            <p className="mt-4 max-w-md text-sm leading-relaxed text-white/50">
-              {team[0].summary}
-            </p>
+        <GlassPanel className="p-8 md:p-12">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                The team behind H3M Softwares
+              </h2>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/55">
+                A small team of engineers working from Lebanon and France.
+                Every project gets direct access to whoever is writing the
+                code.
+              </p>
+            </div>
+            <Link
+              href="/team"
+              className="focus-ring inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/15 px-6 py-3 text-sm font-medium hover:bg-white/5"
+            >
+              Meet the team <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-          <Link
-            href="/team"
-            className="focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-medium hover:bg-white/5"
-          >
-            Meet the team <ArrowRight className="h-4 w-4" />
-          </Link>
+          <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+            {team.map((m) => (
+              <li key={m.slug}>
+                <p className="text-sm font-semibold text-white">{m.name}</p>
+                <p className="mt-1 text-xs leading-relaxed text-white/50">
+                  {m.role}
+                </p>
+              </li>
+            ))}
+          </ul>
         </GlassPanel>
       </section>
 

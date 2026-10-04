@@ -1,120 +1,116 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { PageHeader, GlassPanel, Chip } from "@/components/UI";
-import {
-  Globe2,
-  ShoppingBag,
-  MonitorSmartphone,
-  BrainCircuit,
-  ShieldCheck,
-  Radar,
-} from "lucide-react";
+import { JsonLd } from "@/components/JsonLd";
+import { services } from "@/data/services";
+import { projects } from "@/data/projects";
+import { absoluteUrl } from "@/lib/site";
+import { graph, ids, pageMetadata, webPageJsonLd } from "@/lib/seo";
 
-const services = [
-  {
-    icon: Globe2,
-    title: "Web platforms",
-    description:
-      "Full-stack products built on Next.js, Express, and PostgreSQL — server-prefetched data, typed APIs, and a design system that isn't a wrapped-up component kit.",
-    includes: [
-      "Architecture and data modeling",
-      "Server-rendered Next.js frontends",
-      "Prisma / PostgreSQL backends",
-      "CI pipelines and automated tests",
-    ],
-  },
-  {
-    icon: ShoppingBag,
-    title: "Bilingual e-commerce",
-    description:
-      "Storefronts and admin panels for retailers with a bilingual customer base — real right-to-left layout, cash-on-delivery checkout, and merchandising the owner controls without a deploy.",
-    includes: [
-      "EN/AR design systems with true RTL",
-      "Cash-on-delivery checkout flows",
-      "Role-scoped admin panels (RBAC)",
-      "Search tuned for how customers actually type",
-    ],
-  },
-  {
-    icon: MonitorSmartphone,
-    title: "Point of sale & desktop software",
-    description:
-      "Offline-first checkout, inventory, and back-office systems packaged into a single installer, so a shop with no IT staff can run it on one ordinary PC.",
-    includes: [
-      "Electron packaging of a web-stack app",
-      "Multi-currency, multi-warehouse inventory",
-      "Concurrency-safe checkout under load",
-      "Machine-bound, signed licensing",
-    ],
-  },
-  {
-    icon: BrainCircuit,
-    title: "Applied AI & LLM systems",
-    description:
-      "RAG pipelines and tool-calling agents built for measured accuracy — not a demo that happens to work once.",
-    includes: [
-      "Retrieval-augmented generation pipelines",
-      "Autonomous, tool-calling agents",
-      "Document and knowledge-base assistants",
-      "Accuracy and hallucination-rate evaluation",
-    ],
-  },
-  {
-    icon: ShieldCheck,
-    title: "Security & access control",
-    description:
-      "Authentication and permission systems designed to fail safely — rotating tokens, granular roles, and audit trails on every privileged action.",
-    includes: [
-      "JWT + rotating refresh tokens with reuse detection",
-      "Fine-grained, per-area permission systems",
-      "Audit logs with a JSON diff per change",
-      "Rate limiting and account-abuse protection",
-    ],
-  },
-  {
-    icon: Radar,
-    title: "Penetration testing & security audits",
-    description:
-      "Real-world attack simulation against your apps and infrastructure — finding what a script kiddie or a serious attacker would find, before they do.",
-    includes: [
-      "Web, mobile & API penetration testing",
-      "Infrastructure and network vulnerability scans",
-      "OWASP Top 10 / CVE-based assessments",
-      "Remediation reports with severity ratings",
-    ],
-  },
-];
+const description =
+  "Software development services from H3M Softwares: full-stack web platforms, bilingual EN/AR e-commerce, offline point-of-sale and desktop software, applied AI/LLM systems, access control, and penetration testing.";
+
+export const metadata = pageMetadata({
+  title: "Software Development Services",
+  description,
+  path: "/services",
+});
+
+const projectName = (slug: string) =>
+  projects.find((p) => p.slug === slug)?.name;
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={graph(
+          webPageJsonLd({
+            path: "/services",
+            name: "Software Development Services | H3M Softwares",
+            description,
+            crumbs: [{ name: "Services", path: "/services" }],
+          }),
+          {
+            "@type": "ItemList",
+            name: "H3M Softwares services",
+            itemListElement: services.map((s, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              item: {
+                "@type": "Service",
+                "@id": absoluteUrl(`/services#${s.slug}`),
+                name: s.title,
+                description: s.description,
+                serviceType: s.title,
+                url: absoluteUrl(`/services#${s.slug}`),
+                provider: { "@id": ids.organization },
+              },
+            })),
+          },
+        )}
+      />
+
       <PageHeader
         kicker="services"
         title="Built end to end, not handed off in pieces."
-        description="Each of these is a full slice of a real project — the kind of work we've already shipped, not a menu of buzzwords."
+        description="H3M Softwares designs, builds, and ships custom software. Each service below is a full slice of work we've already delivered — not a menu of buzzwords."
       />
 
       <section className="mx-auto max-w-content px-6 pb-24 md:pb-32">
         <div className="flex flex-col gap-6">
           {services.map((s) => (
-            <GlassPanel
-              key={s.title}
-              className="grid gap-8 p-7 md:grid-cols-[1fr_1.1fr] md:p-10"
-            >
-              <div>
-                <s.icon className="h-6 w-6 text-brand-bright" />
-                <h2 className="mt-4 text-2xl font-semibold tracking-tight">
-                  {s.title}
-                </h2>
-                <p className="mt-3 text-sm leading-relaxed text-white/55">
-                  {s.description}
-                </p>
-              </div>
-              <div className="flex flex-wrap content-start gap-2.5 md:justify-end">
-                {s.includes.map((i) => (
-                  <Chip key={i}>{i}</Chip>
-                ))}
-              </div>
-            </GlassPanel>
+            <article key={s.slug} id={s.slug} className="scroll-mt-24">
+              <GlassPanel className="grid gap-8 p-7 md:grid-cols-[1fr_1.1fr] md:p-10">
+                <div>
+                  <s.icon className="h-6 w-6 text-brand-bright" />
+                  <h2 className="mt-4 text-2xl font-semibold tracking-tight">
+                    {s.title}
+                  </h2>
+                  <p className="mt-3 text-sm leading-relaxed text-white/55">
+                    {s.description}
+                  </p>
+                  {s.projects.length > 0 && (
+                    <p className="mt-4 text-sm text-white/45">
+                      See it in practice:{" "}
+                      {s.projects.map((slug, i) => (
+                        <span key={slug}>
+                          {i > 0 && ", "}
+                          <Link
+                            href={`/projects/${slug}`}
+                            className="focus-ring text-brand-bright hover:text-white"
+                          >
+                            {projectName(slug)}
+                          </Link>
+                        </span>
+                      ))}
+                    </p>
+                  )}
+                </div>
+                <ul className="flex flex-wrap content-start gap-2.5 md:justify-end">
+                  {s.includes.map((i) => (
+                    <li key={i}>
+                      <Chip>{i}</Chip>
+                    </li>
+                  ))}
+                </ul>
+              </GlassPanel>
+            </article>
           ))}
+        </div>
+
+        <div className="mt-12 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <Link
+            href="/contact"
+            className="focus-ring inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-base hover:bg-white/90"
+          >
+            Discuss a project <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            href="/projects"
+            className="focus-ring text-sm font-medium text-brand-bright hover:text-white"
+          >
+            Browse our case studies
+          </Link>
         </div>
       </section>
     </>

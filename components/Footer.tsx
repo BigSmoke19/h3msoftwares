@@ -1,6 +1,15 @@
 import Link from "next/link";
-import { Mail, Phone, Instagram } from "lucide-react";
+import { Mail, Phone, Instagram, MapPin } from "lucide-react";
 import Logo from "./Logo";
+import { site } from "@/lib/site";
+
+const siteLinks = [
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/projects", label: "Projects" },
+  { href: "/team", label: "Team" },
+  { href: "/contact", label: "Contact" },
+];
 
 export default function Footer() {
   return (
@@ -10,23 +19,27 @@ export default function Footer() {
           <div className="max-w-xs">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-white/50">
-              A software development studio building web platforms,
-              e-commerce, point-of-sale systems, and applied AI products.
+              H3M Softwares is a software development company building web
+              platforms, e-commerce, point-of-sale systems, and applied AI
+              products.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-12">
-            <div>
+            <nav aria-label="Footer">
               <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
                 Site
               </p>
               <ul className="mt-4 space-y-2.5 text-sm text-white/60">
-                <li><Link href="/about" className="focus-ring hover:text-white">About</Link></li>
-                <li><Link href="/services" className="focus-ring hover:text-white">Services</Link></li>
-                <li><Link href="/projects" className="focus-ring hover:text-white">Projects</Link></li>
-                <li><Link href="/team" className="focus-ring hover:text-white">Team</Link></li>
+                {siteLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="focus-ring hover:text-white">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
-            </div>
+            </nav>
 
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-white/40">
@@ -35,29 +48,32 @@ export default function Footer() {
               <ul className="mt-4 space-y-2.5 text-sm text-white/60">
                 <li>
                   <a
-                    href="mailto:h3msoftwares@gmail.com"
-                    className="focus-ring inline-flex items-center gap-2 hover:text-white"
+                    href={`mailto:${site.email}`}
+                    className="focus-ring inline-flex items-center gap-2 break-all hover:text-white"
                   >
-                    <Mail className="h-3.5 w-3.5" /> h3msoftwares@gmail.com
+                    <Mail className="h-3.5 w-3.5 shrink-0" /> {site.email}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="tel:+96181076393"
+                    href={`tel:${site.phone.e164}`}
                     className="focus-ring inline-flex items-center gap-2 hover:text-white"
                   >
-                    <Phone className="h-3.5 w-3.5" /> +961 81 076 393
+                    <Phone className="h-3.5 w-3.5" /> {site.phone.display}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://www.instagram.com/h3msoftwares"
+                    href={site.instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="focus-ring inline-flex items-center gap-2 hover:text-white"
                   >
-                    <Instagram className="h-3.5 w-3.5" /> @h3msoftwares
+                    <Instagram className="h-3.5 w-3.5" /> {site.instagram.handle}
                   </a>
+                </li>
+                <li className="inline-flex items-center gap-2">
+                  <MapPin className="h-3.5 w-3.5" /> Based in {site.country.name}
                 </li>
               </ul>
             </div>
@@ -65,7 +81,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-2 border-t border-white/[0.06] pt-6 text-xs text-white/35 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} H3M Softwares. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,31 +1,55 @@
 import { Mail, Phone, Instagram } from "lucide-react";
 import { PageHeader, GlassPanel } from "@/components/UI";
 import { ContactForm } from "@/components/ContactForm";
+import { JsonLd } from "@/components/JsonLd";
+import { site } from "@/lib/site";
+import { graph, pageMetadata, webPageJsonLd } from "@/lib/seo";
+
+const description =
+  "Contact H3M Softwares to discuss a software project. Use the contact form, email h3msoftwares@gmail.com, or call +961 81 076 393.";
+
+export const metadata = pageMetadata({
+  title: "Contact Us",
+  description,
+  path: "/contact",
+});
 
 const channels = [
   {
     icon: Mail,
     label: "Email",
-    value: "h3msoftwares@gmail.com",
-    href: "mailto:h3msoftwares@gmail.com",
+    value: site.email,
+    href: `mailto:${site.email}`,
   },
   {
     icon: Phone,
     label: "Phone",
-    value: "+961 81 076 393",
-    href: "tel:+96181076393",
+    value: site.phone.display,
+    href: `tel:${site.phone.e164}`,
   },
   {
     icon: Instagram,
     label: "Instagram",
-    value: "@h3msoftwares",
-    href: "https://www.instagram.com/h3msoftwares",
+    value: site.instagram.handle,
+    href: site.instagram.url,
   },
 ];
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={graph(
+          webPageJsonLd({
+            path: "/contact",
+            name: "Contact Us | H3M Softwares",
+            description,
+            type: "ContactPage",
+            crumbs: [{ name: "Contact", path: "/contact" }],
+          }),
+        )}
+      />
+
       <PageHeader
         kicker="contact"
         title="Let's talk about what you're building."

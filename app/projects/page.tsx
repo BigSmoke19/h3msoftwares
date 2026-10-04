@@ -1,11 +1,44 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHeader, GlassPanel, Chip } from "@/components/UI";
+import { JsonLd } from "@/components/JsonLd";
 import { projects } from "@/data/projects";
+import { absoluteUrl } from "@/lib/site";
+import { graph, pageMetadata, webPageJsonLd } from "@/lib/seo";
+
+const description =
+  "Case studies of software built by H3M Softwares: Ali's Store, a bilingual EN/AR e-commerce platform, and H3M POS, an offline-first point-of-sale and back-office system.";
+
+export const metadata = pageMetadata({
+  title: "Projects & Case Studies",
+  description,
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (
     <>
+      <JsonLd
+        data={graph({
+          ...webPageJsonLd({
+            path: "/projects",
+            name: "Projects & Case Studies | H3M Softwares",
+            description,
+            type: "CollectionPage",
+            crumbs: [{ name: "Projects", path: "/projects" }],
+          }),
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: projects.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: p.name,
+              url: absoluteUrl(`/projects/${p.slug}`),
+            })),
+          },
+        })}
+      />
+
       <PageHeader
         kicker="projects"
         title="Work we've shipped."

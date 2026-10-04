@@ -1,11 +1,46 @@
 import { Mail } from "lucide-react";
 import { PageHeader, GlassPanel, Chip } from "@/components/UI";
 import { Collapsible } from "@/components/Collapsible";
+import { JsonLd } from "@/components/JsonLd";
 import { team } from "@/data/team";
+import { graph, ids, pageMetadata, webPageJsonLd } from "@/lib/seo";
+
+const description =
+  "Meet the H3M Softwares team: the engineers behind our web platforms, e-commerce, point-of-sale software, applied AI systems, and security work.";
+
+export const metadata = pageMetadata({
+  title: "Our Team",
+  description,
+  path: "/team",
+});
 
 export default function TeamPage() {
   return (
     <>
+      <JsonLd
+        data={graph(
+          webPageJsonLd({
+            path: "/team",
+            name: "Our Team | H3M Softwares",
+            description,
+            crumbs: [{ name: "Team", path: "/team" }],
+          }),
+          ...team.map((m) => ({
+            "@type": "Person",
+            "@id": ids.person(m.slug),
+            name: m.name,
+            jobTitle: m.role,
+            description: m.summary,
+            ...(m.location
+              ? { homeLocation: { "@type": "Place", name: m.location } }
+              : {}),
+            worksFor: { "@id": ids.organization },
+            knowsAbout: m.skills,
+            ...(m.links?.length ? { sameAs: m.links.map((l) => l.href) } : {}),
+          })),
+        )}
+      />
+
       <PageHeader
         kicker="team"
         title="The people building it."
@@ -14,7 +49,8 @@ export default function TeamPage() {
 
       <section className="mx-auto flex max-w-content flex-col gap-8 px-6 pb-24 md:gap-10 md:pb-32">
         {team.map((m) => (
-          <GlassPanel key={m.slug} className="p-7 md:p-10">
+          <article key={m.slug} id={m.slug} className="scroll-mt-24">
+          <GlassPanel className="p-7 md:p-10">
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
@@ -151,6 +187,7 @@ export default function TeamPage() {
             )}
             </Collapsible>
           </GlassPanel>
+          </article>
         ))}
       </section>
     </>

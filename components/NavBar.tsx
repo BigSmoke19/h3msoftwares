@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
+import ScrollProgress from "./ScrollProgress";
 
 const links = [
   { href: "/about", label: "About" },
@@ -20,7 +21,10 @@ export default function NavBar() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-base/80 backdrop-blur-md">
-      <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-4">
+      <nav
+        aria-label="Main"
+        className="mx-auto flex max-w-content items-center justify-between px-6 py-4"
+      >
         <Logo className="text-lg" />
 
         <div className="hidden items-center gap-8 md:flex">
@@ -30,6 +34,7 @@ export default function NavBar() {
               <Link
                 key={l.href}
                 href={l.href}
+                aria-current={active ? "page" : undefined}
                 className={`focus-ring text-sm font-medium transition-colors ${
                   active ? "text-white" : "text-white/60 hover:text-white"
                 }`}
@@ -80,6 +85,7 @@ export default function NavBar() {
           </div>
         </div>
       )}
+      <ScrollProgress />
     </header>
   );
 }

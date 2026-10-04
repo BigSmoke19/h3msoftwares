@@ -2,7 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Check } from "lucide-react";
 import { GlassPanel, Chip } from "@/components/UI";
+import { JsonLd } from "@/components/JsonLd";
 import { projects } from "@/data/projects";
+import { services } from "@/data/services";
+import { absoluteUrl } from "@/lib/site";
+import { graph, ids, pageMetadata, webPageJsonLd } from "@/lib/seo";
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -11,18 +17,51 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const project = projects.find((p) => p.slug === params.slug);
   if (!project) return {};
-  return {
-    title: `${project.name} — H3M Softwares`,
+  return pageMetadata({
+    title: `${project.name} — Case Study`,
     description: project.summary,
-  };
+    path: `/projects/${project.slug}`,
+    ogType: "article",
+  });
 }
 
 export default function ProjectDetail({ params }: { params: { slug: string } }) {
   const project = projects.find((p) => p.slug === params.slug);
   if (!project) notFound();
 
+  const path = `/projects/${project.slug}`;
+  const relatedServices = services.filter((s) =>
+    s.projects.includes(project.slug),
+  );
+
   return (
     <>
+      <JsonLd
+        data={graph(
+          webPageJsonLd({
+            path,
+            name: `${project.name} — Case Study | H3M Softwares`,
+            description: project.summary,
+            crumbs: [
+              { name: "Projects", path: "/projects" },
+              { name: project.name, path },
+            ],
+          }),
+          {
+            "@type": "CreativeWork",
+            "@id": `${absoluteUrl(path)}#project`,
+            name: project.name,
+            headline: project.subtitle,
+            description: project.overview,
+            abstract: project.summary,
+            url: absoluteUrl(path),
+            dateCreated: project.date,
+            creator: { "@id": ids.organization },
+            keywords: project.stack.join(", "),
+            mainEntityOfPage: { "@id": `${absoluteUrl(path)}#webpage` },
+          },
+        )}
+      />
       <section className="mx-auto max-w-content px-6 pb-16 pt-20 md:pt-28">
         <Link
           href="/projects"
@@ -39,11 +78,13 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
           {project.subtitle}
         </p>
 
-        <div className="mt-7 flex flex-wrap gap-2">
+        <ul className="mt-7 flex flex-wrap gap-2">
           {project.stack.map((t) => (
-            <Chip key={t}>{t}</Chip>
+            <li key={t}>
+              <Chip>{t}</Chip>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section className="mx-auto max-w-content px-6 pb-16">
@@ -95,7 +136,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
         </div>
       </section>
 
-      <section className="mx-auto max-w-content px-6 pb-24 md:pb-32">
+      <section className="mx-auto max-w-content px-6 pb-16">
         <h2 className="text-2xl font-semibold tracking-tight">
           What was hard
         </h2>
@@ -106,6 +147,36 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
             </GlassPanel>
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-content px-6 pb-24 md:pb-32">
+        <GlassPanel className="flex flex-col gap-6 p-7 md:flex-row md:items-center md:justify-between md:p-10">
+          <div>
+            <h2 className="text-xl font-semibold">Need something similar?</h2>
+            {relatedServices.length > 0 && (
+              <p className="mt-2 text-sm text-white/55">
+                Related services:{" "}
+                {relatedServices.map((s, i) => (
+                  <span key={s.slug}>
+                    {i > 0 && ", "}
+                    <Link
+                      href={`/services#${s.slug}`}
+                      className="focus-ring text-brand-bright hover:text-white"
+                    >
+                      {s.title}
+                    </Link>
+                  </span>
+                ))}
+              </p>
+            )}
+          </div>
+          <Link
+            href="/contact"
+            className="focus-ring inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-white px-6 py-3 text-sm font-semibold text-base hover:bg-white/90 md:self-auto"
+          >
+            Start a project
+          </Link>
+        </GlassPanel>
       </section>
     </>
   );

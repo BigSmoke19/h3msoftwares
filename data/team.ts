@@ -254,4 +254,91 @@ export const team: TeamMember[] = [
       "CS50 Python — Harvard (2023)",
     ],
   },
+  {
+    slug: "mohammad-khalil",
+    name: "Mohammad Khalil",
+    role: "Software Engineer · Full-Stack & AI Systems",
+    location: "Toulouse, France",
+    email: "mhmdkhalil293@gmail.com",
+    links: [
+      {
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/mohammad-khalil-a3a457230",
+      },
+    ],
+    summary:
+      "MIAGE Master's student at Université Toulouse Capitole working across full-stack development, backend architecture, and applied AI, with a focus on reliable, scalable software systems.",
+    about:
+      "Mohammad is a Master's student in MIAGE (Information Systems) at Université Toulouse Capitole, after a Bachelor's and Master 1 in Computer Science at the Lebanese University. He works across the full stack — TypeScript, Node.js/Express, FastAPI, PostgreSQL, Prisma, and Redis on the backend, React/Next.js and Flutter on the front — and is building depth in machine learning and intelligent systems. He cares about understanding how systems work internally, not just how to use the tools, and aims to connect solid software engineering with the mathematical foundations behind AI.",
+    experience: [
+      {
+        title: "Full-Stack Developer — POS & Business Management System",
+        period: "",
+        description:
+          "Works on a full-stack point-of-sale platform built with TypeScript, Express, Prisma, PostgreSQL, Redis, JWT/Argon2 authentication, Electron, and Next.js with Redux, TanStack, and React Hook Form — covering backend architecture, database transactions, frontend state management, and automated testing.",
+      },
+    ],
+    projects: [
+      {
+        name: "AI-Powered Invoice & Receipt Processing",
+        description:
+          "Exploring OCR plus AI information extraction to turn invoices and receipts into structured data that feeds a POS database and analytics, cutting manual data entry.",
+      },
+      {
+        name: "AI Tic-Tac-Toe",
+        description:
+          "Unbeatable game AI using minimax over the full game tree — adversarial search and state-space exploration.",
+      },
+      {
+        name: "E-Commerce Platform (in development)",
+        description:
+          "Full-stack store for a local clothing business — products, accounts, cart, orders, inventory, payments, and an admin dashboard on Next.js, Node.js/FastAPI, PostgreSQL, and Redis.",
+      },
+    ],
+    education: [
+      {
+        degree: "Master MIAGE — Information Systems",
+        period: "2025 — Present",
+        school: "Université Toulouse Capitole, France",
+      },
+      {
+        degree: "Master 1 in Computer Science",
+        period: "2024 — 2025",
+        school: "Lebanese University",
+      },
+      {
+        degree: "B.S. in Computer Science",
+        period: "2021 — 2024",
+        school: "Lebanese University",
+      },
+    ],
+    skills: [
+      "Python",
+      "Java",
+      "C++",
+      "JavaScript / TypeScript",
+      "C#",
+      "Dart",
+      "SQL",
+      "React / Next.js",
+      "Redux",
+      "Node.js / Express",
+      "FastAPI",
+      "PostgreSQL",
+      "Prisma",
+      "Redis",
+      "MongoDB",
+      "Flutter",
+      "Docker",
+      "Playwright / Vitest",
+      "Scikit-learn",
+      "PyTorch",
+      "NumPy / Pandas",
+    ],
+    languages: [
+      { name: "Arabic", level: "Native" },
+      { name: "English", level: "Upper-intermediate" },
+      { name: "French", level: "Improving toward professional fluency" },
+    ],
+  },
 ];
