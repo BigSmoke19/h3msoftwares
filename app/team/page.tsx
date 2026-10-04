@@ -1,5 +1,6 @@
 import { Mail } from "lucide-react";
 import { PageHeader, GlassPanel, Chip } from "@/components/UI";
+import { Collapsible } from "@/components/Collapsible";
 import { team } from "@/data/team";
 
 export default function TeamPage() {
@@ -11,7 +12,7 @@ export default function TeamPage() {
         description="H3M Softwares is small on purpose — every project gets direct access to the engineer actually writing the code."
       />
 
-      <section className="mx-auto max-w-content px-6 pb-24 md:pb-32">
+      <section className="mx-auto flex max-w-content flex-col gap-8 px-6 pb-24 md:gap-10 md:pb-32">
         {team.map((m) => (
           <GlassPanel key={m.slug} className="p-7 md:p-10">
             <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
@@ -42,9 +43,10 @@ export default function TeamPage() {
               {m.email && (
                 <a
                   href={`mailto:${m.email}`}
-                  className="focus-ring inline-flex shrink-0 items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium hover:bg-white/5"
+                  className="focus-ring inline-flex max-w-full items-center gap-2 self-start rounded-full border border-white/15 px-4 py-2.5 text-sm font-medium hover:bg-white/5 sm:px-5 md:shrink-0"
                 >
-                  <Mail className="h-4 w-4" /> {m.email}
+                  <Mail className="h-4 w-4 shrink-0" />
+                  <span className="min-w-0 break-all">{m.email}</span>
                 </a>
               )}
             </div>
@@ -53,6 +55,7 @@ export default function TeamPage() {
               {m.about}
             </p>
 
+            <Collapsible>
             <div className="mt-10 grid gap-10 md:grid-cols-2">
               <div>
                 <h3 className="text-sm font-semibold text-white/45">
@@ -146,6 +149,7 @@ export default function TeamPage() {
                 </div>
               </>
             )}
+            </Collapsible>
           </GlassPanel>
         ))}
       </section>

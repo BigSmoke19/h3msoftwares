@@ -1,5 +1,6 @@
 import { Mail, Phone, Instagram } from "lucide-react";
 import { PageHeader, GlassPanel } from "@/components/UI";
+import { ContactForm } from "@/components/ContactForm";
 
 const channels = [
   {
@@ -28,10 +29,14 @@ export default function ContactPage() {
       <PageHeader
         kicker="contact"
         title="Let's talk about what you're building."
-        description="Email or call and describe the problem — the platform, the language mix, whether it needs to work offline. We'll follow up with what it would take to build."
+        description="Use the form, email, or call and describe the problem — the platform, the language mix, whether it needs to work offline. We'll follow up with what it would take to build."
       />
 
       <section className="mx-auto max-w-content px-6 pb-24 md:pb-32">
+        <GlassPanel className="mb-6 p-6 md:p-10">
+          <ContactForm />
+        </GlassPanel>
+
         <div className="grid gap-6 md:grid-cols-2">
           {channels.map((c) => {
             const content = (
@@ -39,9 +44,9 @@ export default function ContactPage() {
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/5">
                   <c.icon className="h-5 w-5 text-brand-bright" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs text-white/40">{c.label}</p>
-                  <p className="mt-0.5 text-base font-medium text-white">
+                  <p className="mt-0.5 break-all text-base font-medium text-white">
                     {c.value}
                   </p>
                 </div>

@@ -28,6 +28,7 @@ export const team: TeamMember[] = [
         href: "https://www.linkedin.com/in/mohammad-safieddine-153635248/",
       },
       { label: "GitHub", href: "https://github.com/BigSmoke19" },
+      { label: "Portfolio", href: "https://mohammadsafieddine.vercel.app/" },
     ],
     summary:
       "Builds production-grade apps with Next.js, FastAPI, and PostgreSQL, and applied LLM systems including RAG pipelines and autonomous agents. Three years of freelance experience delivering custom web applications end-to-end, and currently a Master's student and researcher in AI at the Lebanese University.",
